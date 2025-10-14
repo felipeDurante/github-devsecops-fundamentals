@@ -5,3 +5,7 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 .vscode/settings.json
+
+# Playwright
+/blob-report/
+/playwright/.auth/
