@@ -62,4 +62,4 @@ jobs:
       - name: Run Dependency Review
         uses: github/dependency-review-action@v4
         with:
-          config-file: .github/dependency-review-config.yml
+          config-file: ./.github/dependency-review-config.yml
