@@ -68,7 +68,7 @@ module.exports = defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
-
+// teste
   /* Run your local dev server before starting the tests */
   webServer: {
     command: `mkdocs serve --dev-addr ${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
