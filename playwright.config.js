@@ -60,9 +60,9 @@ module.exports = defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: `mkdocs serve --dev-addr http://127.0.0.1:8080`,
-    url: `http://127.0.0.1:8080`,
+   webServer: {
+    command: `mkdocs serve --dev-addr ${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
+    url: `http://${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
     reuseExistingServer: !process.env.CI,
   },
   //   webServer: {
