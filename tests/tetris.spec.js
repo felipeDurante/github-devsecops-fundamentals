@@ -4,7 +4,10 @@ test("Tetris Game", async ({ page }) => {
   const { TETRIS_APP_HOST, TETRIS_APP_PORT, TETRIS_APP_PATH } = process.env;
 
   // should be similar to http://127.0.0.1:8080/github-devsecops-fundamentals/
+  console.log("TETRIS_APP_HOST:", TETRIS_APP_HOST);
+  console.log("TETRIS_APP_PATH:", TETRIS_APP_PATH);
   console.log(
+    "Base URL:",  
     `http://${TETRIS_APP_HOST}:${TETRIS_APP_PORT}/${TETRIS_APP_PATH}`
   );
   await page.goto(
