@@ -42,7 +42,7 @@ jobs:
 
       - name: Build
         run: |
-          python -m mkdocs build --clean --strict --verbose --site-dir '${{ env.TETRIS_APP_PATH }}'
+          python -m mkdocs build --clean --strict --verbose --site-dir '${{ env.SITE_DIR  }}'
 
       - name: Functional Test
         run: npx playwright test

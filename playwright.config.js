@@ -70,14 +70,14 @@ module.exports = defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: `mkdocs serve --dev-addr ${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
-  //   url: `http://${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
-  //   reuseExistingServer: !process.env.CI,
-  // },
-    webServer: {
-    command: `mkdocs serve --dev-addr ${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT} --site-dir ${process.env.TETRIS_APP_PATH}`,
-    url: `http://${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}/${process.env.TETRIS_APP_PATH}`,
+  webServer: {
+    command: `mkdocs serve --dev-addr ${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
+    url: `http://${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
     reuseExistingServer: !process.env.CI,
   },
+  //   webServer: {
+  //   command: `mkdocs serve --dev-addr ${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT} --site-dir ${process.env.TETRIS_APP_PATH}`,
+  //   url: `http://${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}/${process.env.TETRIS_APP_PATH}`,
+  //   reuseExistingServer: !process.env.CI,
+  // },
 });
