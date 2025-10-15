@@ -38,11 +38,11 @@ jobs:
           pip install -r requirements.ci.txt
           npm ci
           # Install browsers for running functional tests
-          npx playwright install
+          npx playwright install --with-deps chromium
 
       - name: Build
         run: |
-          python -m mkdocs build --clean --strict --verbose --site-dir '${{ env.SITE_DIR  }}'
+          python -m mkdocs build --clean --strict --verbose --site-dir '${{ env.SITE_DIR }}'
 
       - name: Functional Test
         run: npx playwright test
