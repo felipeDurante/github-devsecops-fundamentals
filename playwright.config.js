@@ -68,6 +68,7 @@ module.exports = defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
+  // aeae
 
   /* Run your local dev server before starting the tests */
   webServer: {
