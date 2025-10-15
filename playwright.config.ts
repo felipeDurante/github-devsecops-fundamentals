@@ -39,15 +39,6 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
 
     /* Test against mobile viewports. */
     // {
@@ -69,6 +60,11 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
+    webServer: {
+    command: `mkdocs serve --dev-addr http://127.0.0.1:8080`,
+    url: `http://127.0.0.1:8080`,
+    reuseExistingServer: !process.env.CI,
+  },
 
   /* Run your local dev server before starting the tests */
   // webServer: {
