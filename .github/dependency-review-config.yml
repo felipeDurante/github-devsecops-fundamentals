@@ -11,3 +11,8 @@ fail-on-scopes:
   - development
   - runtime
   - unknown
+
+/* This configuration file is for the GitHub Dependency Review Action.
+   For more information, see:
+   https://docs.github.com/en/code-security/dependabot/dependency-review/dependency-review-action
+*/
