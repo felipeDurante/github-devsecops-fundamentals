@@ -60,16 +60,16 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
-    webServer: {
-    command: `mkdocs serve --dev-addr http://127.0.0.1:8080`,
-    url: `http://127.0.0.1:8080`,
-    reuseExistingServer: !process.env.CI,
-  },
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
+  //   webServer: {
+  //   command: `mkdocs serve --dev-addr http://127.0.0.1:8080`,
+  //   url: `http://127.0.0.1:8080`,
   //   reuseExistingServer: !process.env.CI,
   // },
+
+  /* Run your local dev server before starting the tests */
+  webServer: {
+    command: 'npm run start',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
 });
