@@ -38,7 +38,7 @@ jobs:
           pip install -r requirements.ci.txt
           npm ci
           # Install browsers for running functional tests
-          npx playwright install
+          npx playwright install chromium
 
       - name: Build
         run: |
