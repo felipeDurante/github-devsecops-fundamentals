@@ -3,6 +3,10 @@ import { test, expect } from "@playwright/test";
 test("Tetris Game", async ({ page }) => {
   const { TETRIS_APP_HOST, TETRIS_APP_PORT, TETRIS_APP_PATH } = process.env;
 
+  console.log("TETRIS_APP_HOST", TETRIS_APP_HOST);
+  console.log("TETRIS_APP_PORT", TETRIS_APP_PORT);
+  console.log("TETRIS_APP_PATH", TETRIS_APP_PATH);
+
   // should be similar to http://127.0.0.1:8080/github-devsecops-fundamentals/
   console.log(
     `http://${TETRIS_APP_HOST}:${TETRIS_APP_PORT}/${TETRIS_APP_PATH}`
