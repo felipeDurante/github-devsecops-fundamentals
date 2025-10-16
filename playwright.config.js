@@ -6,6 +6,16 @@ const { defineConfig, devices } = require("@playwright/test");
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
+function buildBaseUrl() {
+  const env = process.env.PLAYWRIGHT_BASE_URL;
+  if (env && /^https?:\/\//.test(env)) return env;
+  const host = process.env.TETRIS_APP_HOST || '127.0.0.1';
+  const port = process.env.TETRIS_APP_PORT || '8080';
+  const path = process.env.TETRIS_APP_PATH ? `/${process.env.TETRIS_APP_PATH.replace(/^\/|\/$/g, '')}` : '';
+  const url = `http://${host}:${port}${path}`;
+  if (!/^https?:\/\//.test(url)) throw new Error(`PLAYWRIGHT baseURL inválido: ${url}`);
+  return url;
+}
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -25,8 +35,8 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: `http://${process.env.TETRIS_APP_HOST}:${process.env.TETRIS_APP_PORT}`,
-
+    baseURL: buildBaseUrl(),
+    headless: true,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
   },

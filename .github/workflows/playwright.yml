@@ -15,10 +15,27 @@ jobs:
         node-version: lts/*
     - name: Install dependencies
       run: npm ci
+
+    - name: Build site (mkdocs) and install Python deps
+      run: |
+        python3 -m pip install --upgrade pip
+        pip install -r requirements.ci.txt
+        python3 -m mkdocs build --clean --site-dir site
+
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps chromium
+
+    - name: Start local server for site
+      run: |
+        # roda servidor simples na porta 8080 servindo ./site em background
+        python3 -m http.server 8080 --directory site >/dev/null 2>&1 &
+        sleep 1
+
     - name: Run Playwright tests
       run: npx playwright test
+      env:
+        PLAYWRIGHT_BASE_URL: http://127.0.0.1:8080/github-devsecops-fundamentals
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
