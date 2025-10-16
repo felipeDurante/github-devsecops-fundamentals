@@ -54,3 +54,14 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+  security-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          config-file: >-
+            ./.github/dependency-review-config.yml
