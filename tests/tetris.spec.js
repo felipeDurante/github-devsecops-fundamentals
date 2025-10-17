@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Tetris Game", async ({ page }) => {
-  const { TETRIS_APP_HOST, TETRIS_APP_PORT, TETRIS_APP_PATH } = env;
+  const { TETRIS_APP_HOST, TETRIS_APP_PORT, TETRIS_APP_PATH } = process.env;
 
   // should be similar to http://127.0.0.1:8080/github-devsecops-fundamentals/
   console.log(
