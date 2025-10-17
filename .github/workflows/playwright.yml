@@ -17,10 +17,6 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium
-    - name: Start local server
-      run: |
-        npm run start &   # ou o comando que você usa localmente, ex: npx http-server . -p 8080
-        npx wait-on http://127.0.0.1:8080/github-devsecops-fundamentals/
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v4

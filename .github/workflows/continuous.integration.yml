@@ -44,8 +44,11 @@ jobs:
         run: |
           python -m mkdocs build --clean --strict --verbose --site-dir '${{ env.SITE_DIR }}'
 
-      - name: Functional Test
-        run: npx playwright test
+      - name: Start local server
+        run: |
+          python -m http.server 8080 --directory site &
+          npx wait-on http://127.0.0.1:8080/github-devsecops-fundamentals/
+
 
       - name: Upload Functional Test Report
         uses: actions/upload-artifact@v4
