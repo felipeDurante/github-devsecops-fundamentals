@@ -48,7 +48,9 @@ jobs:
         run: |
           python -m http.server 8080 --directory site &
           npx wait-on http://127.0.0.1:8080/github-devsecops-fundamentals/
-
+          
+      - name: Functional Test
+        run: npx playwright test
 
       - name: Upload Functional Test Report
         uses: actions/upload-artifact@v4
