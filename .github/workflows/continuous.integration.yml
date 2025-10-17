@@ -46,7 +46,7 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Build site
-        run: python -m mkdocs build --clean --strict --verbose --site-dir '${{ env.SITE_DIR }}'
+        run: python -m mkdocs build --clean --strict --verbose --site-dir 'site/github-devsecops-fundamentals'
 
       - name: Upload built site
         uses: actions/upload-artifact@v4
