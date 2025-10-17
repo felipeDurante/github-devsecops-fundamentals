@@ -19,8 +19,8 @@ jobs:
       run: npx playwright install --with-deps chromium
     - name: Start local server
       run: |
-        npm run start &
-        npx wait-on http://127.0.0.1:8080/github-devsecops-fundamentals/
+        python -m http.server $TETRIS_APP_PORT --directory site &
+        npx wait-on  http://127.0.0.1:8080/github-devsecops-fundamentals/
 
     - name: Run Playwright tests
       run: npx playwright test
