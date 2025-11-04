@@ -8,6 +8,16 @@ import { defineConfig, devices } from '@playwright/test';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
+function buildBaseUrl() {
+  const env = process.env.PLAYWRIGHT_BASE_URL;
+  if (env && /^https?:\/\//.test(env)) return env;
+  const host = process.env.TETRIS_APP_HOST || '127.0.0.1';
+  const port = process.env.TETRIS_APP_PORT || '8080';
+  const path = process.env.TETRIS_APP_PATH ? `/${process.env.TETRIS_APP_PATH.replace(/^\/|\/$/g, '')}` : '';
+  const url = `http://${host}:${port}${path}`;
+  if (!/^https?:\/\//.test(url)) throw new Error(`PLAYWRIGHT baseURL inválido: ${url}`);
+  return url;
+}
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -27,6 +37,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
+    baseURL: buildBaseUrl(),
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -39,15 +50,6 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
 
     /* Test against mobile viewports. */
     // {

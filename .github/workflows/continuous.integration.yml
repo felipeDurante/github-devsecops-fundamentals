@@ -1,9 +1,10 @@
-name: Run Checks on PR
+name: Run Checks and Playwright Tests
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 permissions:
   actions: write
@@ -20,34 +21,76 @@ env:
   TETRIS_APP_PATH: "github-devsecops-fundamentals"
 
 jobs:
+  # 1️⃣ Primeiro job: Build e verificações
   quality-checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: 3.12
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.ci.txt
           npm ci
-          # Install browsers for running functional tests
           npx playwright install --with-deps chromium
 
-      - name: Build
-        run: |
-          python -m mkdocs build --clean --strict --verbose --site-dir '${{ env.SITE_DIR }}'
+      - name: Build site
+        run: python -m mkdocs build --clean --strict --verbose --site-dir 'site/github-devsecops-fundamentals'
 
-      - name: Functional Test
+      - name: Upload built site
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-site
+          path: ${{ env.SITE_DIR }}/
+          retention-days: 1
+
+  # 2️⃣ Segundo job: Testes com Playwright
+  playwright-tests:
+    needs: quality-checks   # ⏳ só roda depois do primeiro job
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: built-site
+          path: site
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm install --save-dev wait-on
+
+      - name: Start local server
+        run: |
+          python -m http.server $TETRIS_APP_PORT --directory site &
+          npx wait-on http://${TETRIS_APP_HOST}:${TETRIS_APP_PORT}/${TETRIS_APP_PATH}/
+
+      - name: Run Playwright tests
         run: npx playwright test
 
-      - name: Upload Functional Test Report
+      - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: always()
         with:

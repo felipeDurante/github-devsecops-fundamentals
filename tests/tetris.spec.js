@@ -8,7 +8,7 @@ test("Tetris Game", async ({ page }) => {
     `http://${TETRIS_APP_HOST}:${TETRIS_APP_PORT}/${TETRIS_APP_PATH}`
   );
   await page.goto(
-    `http://${TETRIS_APP_HOST}:${TETRIS_APP_PORT}/${TETRIS_APP_PATH}`
+    `http://127.0.0.1:8080/github-devsecops-fundamentals/`
   );
 
   await page.getByRole("link", { name: "Tetris Game" }).click();
